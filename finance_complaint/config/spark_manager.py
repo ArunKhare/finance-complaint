@@ -14,7 +14,7 @@ secret_access_key = os.getenv(AWS_SECRET_ACCESS_KEY_ENV_KEY, )
 # spark_session=spark
 #
 
-
+print("Creating a spark_session")
 spark_session = SparkSession.builder.master('local[*]').appName('finance_complaint') \
     .config("spark.executor.instances", "1") \
     .config("spark.executor.memory", "6g") \
@@ -24,7 +24,7 @@ spark_session = SparkSession.builder.master('local[*]').appName('finance_complai
     .getOrCreate()
     # 
     
-
+print("SPARK SESSION CREATED")
 
 spark_session._jsc.hadoopConfiguration().set("fs.s3a.awsAccessKeyId", access_key_id)
 spark_session._jsc.hadoopConfiguration().set("fs.s3a.awsSecretAccessKey", secret_access_key)

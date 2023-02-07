@@ -1,10 +1,11 @@
-# FROM python:3.8.2-slim-buster
-FROM ubuntu:20.04
+FROM python:3.9-slim-buster
+# FROM ubuntu:22.04
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
+FROM openjdk:jdk-slim
 RUN apt-get update -y \
 && apt-get install -y software-properties-common \
-&& add-apt-repository ppa:deadsnakes/ppa \
-&& apt-get install openjdk-8-jdk -y \
+# add-apt-repository ppa:deadsnakes/ppa \
+# && apt-get install openjdk-8-jdk -y \
 && apt-get install python3-pip -y \
 && export JAVA_HOME \
 && apt-get clean \
@@ -18,9 +19,9 @@ USER root
 RUN mkdir /app
 COPY . /app/
 WORKDIR /app/
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
 RUN airflow db init 
-RUN airflow users create  -e avnish@ineuron.ai -f Avnish -l Yadav -p admin -r Admin  -u admin
+RUN airflow users create  -e arunvkhare@gmail.com -f Arun -l Khare -p admin -r Admin  -u admin
 RUN chmod 777 start.sh
 ENTRYPOINT [ "/bin/sh" ]
 CMD ["start.sh"]
